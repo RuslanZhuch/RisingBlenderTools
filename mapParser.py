@@ -812,6 +812,14 @@ class ExportScene(bpy.types.Operator, AddObjectHelper):
                 control_points_x.pop(-1)
                 control_points_y.pop(0)
                 control_points_y.pop(-1)
+            else:
+                control_points_x.append(control_points_x[0])
+                control_points_x.append(control_points_x[1])
+                control_points_x.pop(0)
+                
+                control_points_y.append(control_points_y[0])
+                control_points_y.append(control_points_y[1])
+                control_points_y.pop(0)
 
             animation_data = track_data.animation_data
             if animation_data is None:
@@ -827,7 +835,6 @@ class ExportScene(bpy.types.Operator, AddObjectHelper):
 
             json_tracks_data.append({
                 "name": object.name,
-                "isCyclic": is_cyclic,
                 "actionName": action_name,
                 "pointsX": control_points_x,
                 "pointsY": control_points_y
